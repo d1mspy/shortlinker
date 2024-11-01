@@ -1,7 +1,10 @@
-from fastapi import FastAPI, Response, status, Path, HTTPException
+import time
+from fastapi import FastAPI, Request, Response, status, Path, HTTPException
 from pydantic import BaseModel
 from services.short_link_service import ShortLinkService
 from re import fullmatch
+from typing import Callable, Awaitable
+from loguru import logger
 
 app = FastAPI(
     title='Сервис генерации коротких ссылок',

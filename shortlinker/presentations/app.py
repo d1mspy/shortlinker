@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Response, status, Path, HTTPException
 from pydantic import BaseModel
 from services.short_link_service import ShortLinkService
+from re import fullmatch
 
 app = FastAPI(
     title='Сервис генерации коротких ссылок',
@@ -29,8 +30,13 @@ def put_link(long_link: PutLink) -> PutLink:
     """
     метод создания короткой ссылки по длинной ссылке
     """
+    if long_link.link[:8] != "https://":
+        long_link.link = "https://" + long_link.link 
+    if not(fullmatch("https://\w{1,}\.\w{1,}", long_link.link)):
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Неправильная ссылка")
+
     short_link = short_link_service.put_link(long_link.link)
-    
+
     return PutLink(link=f'http://localhost:8000/short/{short_link}')
 
 

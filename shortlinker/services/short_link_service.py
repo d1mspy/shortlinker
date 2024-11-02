@@ -1,16 +1,18 @@
 from utils.utils_random import random_alfanum
+from repositories.db.link_repository import LinkRepository
+
 
 class ShortLinkService:
     def __init__(self):
-        self.short_link_to_long_link: dict[str, str] = {}
+        self.link_repository = LinkRepository()
 
-    def get_link(self, short_link: str) -> str | None:
-        return self.short_link_to_long_link.get(short_link)
-    
-    def put_link(self, long_link: str) -> str:
-        short_link = random_alfanum(n=5)
+    async def put_link(self, long_link: str) -> str:
+        short_link = random_alfanum(10)
 
-        self.short_link_to_long_link[short_link] = long_link
+        await self.link_repository.put_link(short_link, long_link)
 
         return short_link
+    
+    async def get_link(self, short_link: str) -> str | None:
+        return await self.link_repository.get_link(short_link)
     

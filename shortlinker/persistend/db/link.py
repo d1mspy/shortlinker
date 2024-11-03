@@ -16,7 +16,7 @@ def uuid4_as_str() -> str:
 class Link(Base):
     __tablename__ = "link"
 
-    id = Column(Text, default=uuid4_as_str(), primary_key=True)
+    id = Column(Text, default=uuid4_as_str, primary_key=True)
     
     short_link = Column(Text, nullable=False, unique=True)
     long_link = Column(Text, nullable=False)

@@ -15,6 +15,7 @@ class LinkRepository:
 
         async with self._sessionmaker() as session:
             await session.execute(stmp)
+            await session.commit()
     
     async def get_link(self, short_link: str) -> str | None:
         """

@@ -29,7 +29,7 @@ class LinkRepository:
         """
         INSERT INTO link_usage(user_ip, user_agent, short_link) VALUES ({user_ip}, {user_agent}, {short_link})
         """
-        using = insert(LinkUsage).values({"user_ip": request.client.host, "user_agent": request.headers.get('User-Agent'), "short_link": short_link})
+        using = insert(LinkUsage).values({"user_ip": request.client.host, "user_agent": request.headers.get("User-Agent"), "short_link": short_link})
 
         async with self._sessionmaker() as session:
             resp = await session.execute(stmp)

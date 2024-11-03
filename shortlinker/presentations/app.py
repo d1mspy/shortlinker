@@ -65,11 +65,11 @@ async def put_link(long_link: PutLink) -> PutLink:
 
 
 @app.get("/short/{short_link}")
-async def get_link(short_link: str = Path(...)) -> Response:
+async def get_link(request: Request, short_link: str = Path(...)) -> Response:
     """
     метод переадресации с короткой ссылки на длинную
     """
-    long_link = await short_link_service.get_link(short_link)
+    long_link = await short_link_service.get_link(short_link, request)
 
     if long_link is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Упс, мы не нашли эту ссылочку")

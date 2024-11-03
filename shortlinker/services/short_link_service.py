@@ -16,3 +16,6 @@ class ShortLinkService:
     async def get_link(self, short_link: str, request: Request) -> str | None:
         return await self.link_repository.get_link(short_link, request)
     
+    async def get_statistics(self, short_link: str) -> list:
+        return await self.link_repository.get_statistics(short_link)
+    

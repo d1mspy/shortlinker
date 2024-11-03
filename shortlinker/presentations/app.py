@@ -13,25 +13,25 @@ app = FastAPI(
 short_link_service = ShortLinkService()
 
 
-@app.middleware("http")
-async def add_process_time_header(request: Request, call_next: Callable[[Request], Awaitable[Response]]) -> Response:
-    """
-    мидлварь для записи времени выполнения запроса в хедеры
-    """
-    t0 = time.time()
+# @app.middleware("http")
+# async def add_process_time_header(request: Request, call_next: Callable[[Request], Awaitable[Response]]) -> Response:
+#     """
+#     мидлварь для записи времени выполнения запроса в хедеры
+#     """
+#     t0 = time.time()
 
-    response = await call_next(request)
+#     response = await call_next(request)
 
-    elapsed_ms = round((time.time() - t0) * 1000, 2)
-    response.headers["X-Latency"] = str(elapsed_ms)
+#     elapsed_ms = round((time.time() - t0) * 1000, 2)
+#     response.headers["X-Latency"] = str(elapsed_ms)
 
-    try:
-        route_path = request.scope.get("route", {}).path
-        logger.debug("{} {} done in {}ms", request.method, route_path, elapsed_ms)
-    except Exception:
-        logger.exception("exception.raised")
+#     try:
+#         route_path = request.scope.get("route", {}).path
+#         logger.debug("{} {} done in {}ms", request.method, route_path, elapsed_ms)
+#     except Exception:
+#         logger.exception("exception.raised")
 
-    return response
+#     return response
 
 
 @app.get("/health")
@@ -79,3 +79,16 @@ async def get_link(request: Request, short_link: str = Path(...)) -> Response:
         headers={"Location": long_link}, 
         status_code=status.HTTP_301_MOVED_PERMANENTLY,
     )
+
+
+@app.get("/link/{short_link}/statistics")
+async def get_statistics(short_link: str) -> Response:
+    """
+    метод получения статистики использования короткой ссылки
+    """
+    stats = await short_link_service.get_statistics(short_link)
+
+    if stats == []:
+        return "У этой ссылки еще нет статистики"
+
+    return stats

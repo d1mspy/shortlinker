@@ -30,4 +30,4 @@ class LinkRepository:
         if row is None:
             return None
         
-        return row
+        return row[0]

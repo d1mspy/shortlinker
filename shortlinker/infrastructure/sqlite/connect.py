@@ -1,9 +1,11 @@
-from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker, declarative_base
-import asyncio
+from settings.settings import settings
+from sqlalchemy import AsyncSession, async_sessionmaker, create_async_engine
 
-def sqlite_connection() -> async_sessionmaker[AsyncSession]:
-	url = "sqlite+aiosqlite:///sql_app.db"
 
-	engine = create_async_engine(url, connect_args={"check_same_thread": False})
+def pg_connection() -> async_sessionmaker[AsyncSession]:
+	engine = create_async_engine(
+		f"postgresql+asyncpg://{settings.pg.username}:{settings.pg.password}@"
+		f"{settings.pg.host}:{settings.pg.port}/{settings.pg.database}"
+	)
+
 	return async_sessionmaker(autocommit=False, autoflush=False, bind=engine)

@@ -1,5 +1,5 @@
 from settings.settings import settings
-from sqlalchemy import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 
 def pg_connection() -> async_sessionmaker[AsyncSession]:

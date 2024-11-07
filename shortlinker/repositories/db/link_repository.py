@@ -1,12 +1,12 @@
 from persistend.db.link import Link, LinkUsage
-from infrastructure.sqlite.connect import sqlite_connection
+from infrastructure.postgres.connect import pg_connection
 from sqlalchemy import insert, select
 from fastapi import Request
 
 class LinkRepository:
 
     def __init__(self) -> None:
-        self._sessionmaker = sqlite_connection()
+        self._sessionmaker = pg_connection()
 
 
     async def put_link(self, short_link: str, long_link: str) -> None:

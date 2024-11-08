@@ -9,8 +9,8 @@ class Postgres(BaseModel):
 	database: str = "db_main"
 	host: str = "localhost"
 	port: int = 5432
-	username: str = "db_main"
-	password: str = "db_main"
+	username: str = "postgres"
+	password: str = "postgresuper"
 
 
 class Uvicorn(BaseModel):

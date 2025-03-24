@@ -1,16 +1,16 @@
 import multiprocessing as mp
 
-from loguru import logger 
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from config.config import PG_DATABASE, PG_HOST, PG_PORT, PG_USER, PG_PASSWORD
 
 
 class Postgres(BaseModel):
-	database: str = "db_main"
-	host: str = "0.0.0.0"
-	port: int = 5432
-	username: str = "postgres"
-	password: str = "postgresuper"
+	database: str = PG_DATABASE
+	host: str = PG_HOST
+	port: int = PG_PORT
+	username: str = PG_USER
+	password: str = PG_PASSWORD
 
 
 class Uvicorn(BaseModel):
@@ -27,4 +27,3 @@ class _Settings(BaseSettings):
 
 
 settings = _Settings()
-logger.info("settings.inited {}", settings.model_dump_json())

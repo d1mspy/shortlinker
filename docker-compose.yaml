@@ -1,0 +1,35 @@
+networks:
+  shortlinker_net:
+    driver: bridge
+
+
+services:
+  backend:
+
+    env_file: .env
+
+    build:
+      context: backend
+      dockerfile: Dockerfile
+
+    ports:
+      - 8000:8000
+
+    networks:
+      - shortlinker_net
+  
+  postgres:
+
+    image: postgres:17.0
+
+    env_file: .env
+
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      
+    volumes:
+      - "./backend/init.sql:/docker-entrypoint-initdb.d/init.sql"
+      - "./data/pg/:/var/lib/postgresql/data/"
+
+    networks:
+      - shortlinker_net

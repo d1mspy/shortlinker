@@ -25,11 +25,11 @@ async def add_process_time_header(request: Request, call_next: Callable[[Request
     elapsed_ms = round((time.time() - t0) * 1000, 2)
     response.headers["X-Latency"] = str(elapsed_ms)
 
-    try:
-        route_path = request.scope.get("route", {}).path
-        logger.debug("{} {} done in {}ms", request.method, route_path, elapsed_ms)
-    except Exception:
-        logger.exception("exception.raised")
+    route_path = request.scope.get("route")
+    if route_path:
+        logger.debug("{} {} done in {}ms", request.method, route_path.path, elapsed_ms)
+    else:
+        logger.debug("{} [UNKNOWN_ROUTE] done in {}ms", request.method, elapsed_ms)
 
     return response
 

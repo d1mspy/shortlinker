@@ -1,19 +1,15 @@
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import Column, Text, BigInteger, DateTime, Double, MetaData
+from sqlalchemy.dialects.postgresql import UUID
 import uuid
 from datetime import datetime
 
 Base = declarative_base()
 
-
-def uuid4_as_str() -> str:
-  return str(uuid.uuid4())
-
-
 class WithId:
 	__abstract__ = True
 
-	id = Column(Text, default=uuid4_as_str, primary_key=True)
+	id = Column(UUID(as_uuid=True), default=uuid.uuid4, primary_key=True)
 
 
 class WithCreatedAt:

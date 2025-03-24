@@ -2,7 +2,6 @@ import time
 from fastapi import FastAPI, Request, Response, status, Path, HTTPException
 from pydantic import BaseModel
 from services.short_link_service import ShortLinkService
-from re import fullmatch
 from typing import Callable, Awaitable
 from loguru import logger
 
@@ -54,10 +53,10 @@ async def put_link(long_link: PutLink) -> PutLink:
     """
     метод создания короткой ссылки по длинной ссылке
     """
-    if long_link.link[:8] != "https://":
+    if long_link.link[:8] != "https://" and long_link.link[:7] != "http://":
         long_link.link = "https://" + long_link.link 
-    if not(fullmatch("https://\w{1,}\.\w{1,}", long_link.link)):
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Некорректная ссылка")
+    if long_link.link.count('.') < 1:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=f"Некорректная ссылка {long_link.link}")
 
     short_link = await short_link_service.put_link(long_link.link)
 

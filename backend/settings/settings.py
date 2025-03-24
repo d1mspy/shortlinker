@@ -7,14 +7,14 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Postgres(BaseModel):
 	database: str = "db_main"
-	host: str = "localhost"
+	host: str = "0.0.0.0"
 	port: int = 5432
 	username: str = "postgres"
 	password: str = "postgresuper"
 
 
 class Uvicorn(BaseModel):
-	host: str = "localhost"
+	host: str = "0.0.0.0"
 	port: int = 8000
 	workers: int = mp.cpu_count() * 2 + 1
 

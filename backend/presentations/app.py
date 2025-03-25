@@ -12,6 +12,13 @@ app = FastAPI(
 short_link_service = ShortLinkService()
 
 
+class PutLink(BaseModel):
+    """
+    ссылка 
+    """
+    link: str
+
+
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next: Callable[[Request], Awaitable[Response]]) -> Response:
     """
@@ -31,21 +38,6 @@ async def add_process_time_header(request: Request, call_next: Callable[[Request
         logger.debug("{} [UNKNOWN_ROUTE] done in {}ms", request.method, elapsed_ms)
 
     return response
-
-
-@app.get("/health")
-def hello_world() -> str:
-    """
-    тестовый эндпоинт
-    """
-    return "ok"
-
-
-class PutLink(BaseModel):
-    """
-    ссылка 
-    """
-    link: str
 
 
 @app.put("/link")
@@ -91,3 +83,16 @@ async def get_statistics(short_link: str) -> Response:
         return "У этой ссылки еще нет статистики"
 
     return stats
+
+
+@app.get("/link/list")
+async def get_all_links() -> Response:
+    """
+    метод получения информации о всех ссылках
+    """
+    link_data = await short_link_service.get_all_links()
+    
+    if link_data == []:
+        return "ссылок нету :("
+    
+    return link_data

@@ -2,6 +2,7 @@ from persistend.db.base import Base, WithId, WithCreatedAt, WithUpdatedAt
 from sqlalchemy import Column, Text
 
 
+# таблица link
 class Link(Base, WithId, WithCreatedAt, WithUpdatedAt):
     __tablename__ = "link"
     
@@ -9,6 +10,7 @@ class Link(Base, WithId, WithCreatedAt, WithUpdatedAt):
     long_link = Column(Text, nullable=False)
 
 
+# таблица link_usage
 class LinkUsage(Base, WithId, WithCreatedAt, WithUpdatedAt):
     __tablename__ = "link_usage"
 

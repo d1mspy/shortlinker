@@ -3,12 +3,13 @@ from infrastructure.postgres.connect import pg_connection
 from sqlalchemy import insert, select
 from fastapi import Request
 
+# взаимодействие с базой данных
 class LinkRepository:
 
     def __init__(self) -> None:
         self._sessionmaker = pg_connection()
 
-
+    
     async def put_link(self, short_link: str, long_link: str) -> None:
         """
         INSERT INTO Link(short_link, long_link) VALUES ({short_link}, {long_link})
@@ -65,3 +66,20 @@ class LinkRepository:
         stats = [dict(zip(keys, item)) for item in row]
    
         return stats
+
+
+    async def get_all_links(self) -> list[dict]:
+        """
+        SELECT * FROM link ORDER BY link.long_link
+        """
+        stmp = select(Link.id, Link.created_at, Link.updated_at, Link.long_link, Link.short_link).order_by(Link.long_link)
+        
+        async with self._sessionmaker() as session:
+            resp = await session.execute(stmp)
+        
+        row = list(resp.fetchall())
+        keys = ["id", "created_at", "updated_at", "long_link", "short_link"]
+        
+        links_data = [dict(zip(keys, item)) for item in row]
+        
+        return links_data

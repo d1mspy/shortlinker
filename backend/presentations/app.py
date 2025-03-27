@@ -60,7 +60,7 @@ async def put_link(long_link: PutLink) -> PutLink:
 
     short_link = await short_link_service.put_link(long_link.link)
 
-    return PutLink(link=f'http://localhost:8000/short/{short_link}')
+    return PutLink(link=f'http://localhost/api/short/{short_link}')
 
 
 @app.get("/short/{short_link}")

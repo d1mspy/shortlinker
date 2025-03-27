@@ -21,7 +21,7 @@ export default function ShortLinkGenerator() {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/link", {
+      const response = await fetch("/api/link", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ link: url }),

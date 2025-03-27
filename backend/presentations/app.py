@@ -1,5 +1,6 @@
 import time
 from fastapi import FastAPI, Request, Response, status, Path, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from services.short_link_service import ShortLinkService
 from typing import Callable, Awaitable
@@ -11,6 +12,13 @@ app = FastAPI(
     )
 short_link_service = ShortLinkService()
 
+# разрешаем запросы
+app.add_middleware(CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*']             
+    )
 
 class PutLink(BaseModel):
     """

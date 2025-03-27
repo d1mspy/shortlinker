@@ -17,6 +17,18 @@ services:
 
     networks:
       - shortlinker_net
+
+  frontend:
+
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+
+    ports:
+      - 3000:3000
+
+    networks:
+      - shortlinker_net
   
   postgres:
 

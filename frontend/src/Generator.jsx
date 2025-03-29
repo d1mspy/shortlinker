@@ -87,12 +87,14 @@ export default function ShortLinkGenerator() {
             )}
           </CardContent>
         </Card>
-        <Button onClick={() => navigate("/statistics")} className="stats-button">
-          Перейти к статистике
-        </Button>
-        <Button onClick={() => navigate("/all-links")} className="all-links-button">
-          Все ссылки
-        </Button>
+        <div className="buttons-container">
+          <Button onClick={() => navigate("/statistics")} className="stats-button">
+            Перейти к статистике
+          </Button>
+          <Button onClick={() => navigate("/all-links")} className="all-links-button">
+            Все ссылки
+          </Button>
+        </div>
       </div>
     </div>
   );

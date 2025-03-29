@@ -1,0 +1,101 @@
+.statistics-page .stats-table-container {
+    max-height: 300px;
+    overflow-y: scroll;
+    width: 100%;
+    min-height: 300px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #2b2b2b;
+  }
+  
+  .statistics-page .stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Фиксированная ширина колонок */
+  }
+  
+  .statistics-page .stats-table th,
+  .statistics-page .stats-table td {
+    padding: 10px;
+    border: 1px solid #444;
+    text-align: left;
+    width: 25%; /* Пропорционально делим столбцы */
+  }
+  
+  .statistics-page .empty-message {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+  }
+  
+  .stats-input-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    margin-bottom: 40px;
+  }
+  
+  .stats-input-container input {
+    flex-grow: 1;
+    width: 100px;
+    padding: 10px;
+    background-color: #5d5d5e;
+    border-radius: 20px;
+    font-size: 20px;
+    margin-left: 100px;
+    border: none;
+  }
+  
+  .stats-input-container input::placeholder {
+    color: #9a9797;
+  }
+  
+  .stats-input-container input:focus {
+    outline: none;
+  }
+  
+  .stats-input-container button {
+    flex-shrink: 0;
+    padding: 10px;
+    background-color: #3759f4;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background 0.3s;
+    margin-right: 150px;
+  }
+  
+  .stats-input-container button:active {
+    transform: scale(0.97);
+  }
+  
+  .stats-input-container button:focus {
+    outline: none;
+  }
+
+  .stats-title {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+.back-button-container {
+    margin-top: 30px;
+    margin-left: 10px;
+}
+  
+.back-button-container button {
+  flex-shrink: 0;
+  padding: 10px;
+  background-color: #464646;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 20px;
+  transition: background 0.3s;
+}

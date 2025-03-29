@@ -36,10 +36,10 @@ export default function AllLinksPage() {
   return (
     <div className="container">
       <div className="header">
-        <h1 className="title">Все ссылки</h1>
         <Button onClick={() => navigate(-1)} className="back-button">
             Вернуться назад
         </Button>
+        <h2>Все ссылки</h2>
       </div>
       <div className="content">
         <Card className="card">
@@ -52,7 +52,6 @@ export default function AllLinksPage() {
                   <tr>
                     <th>ID</th>
                     <th>Дата создания</th>
-                    <th>Дата обновления</th>
                     <th>Короткая ссылка</th>
                     <th>Длинная ссылка</th>
                   </tr>
@@ -62,10 +61,9 @@ export default function AllLinksPage() {
                     <tr key={link.id}>
                       <td>{link.id}</td>
                       <td>{new Date(link.created_at).toLocaleString()}</td>
-                      <td>{new Date(link.updated_at).toLocaleString()}</td>
                       <td>
-                        <a href={link.short_link} target="_blank" rel="noopener noreferrer">
-                          {link.short_link}
+                        <a href={`http://localhost/api/short/${link.short_link}`} target="_blank" rel="noopener noreferrer">
+                          {`http://localhost/api/short/${link.short_link}`}
                         </a>
                       </td>
                       <td>{link.long_link}</td>

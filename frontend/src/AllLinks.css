@@ -1,35 +1,41 @@
-/*.links-table {
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #222121;
+    font-family: Arial, sans-serif;
+    color: white;
+    gap: 20px;
+}
+  
+.content {
+    width: 100%;
+    max-width: 800px;
+}
+  
+.links-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.back-button {
-    display: block;
-} */
-
-.header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-  
-/*.links-table th, .links-table td {
+.links-table th, .links-table td {
     border: 1px solid #7b7b7b;
     padding: 8px;
-    text-align: left;
+    text-align: center;
 }
   
 .links-table th {
-    background-color: #4c4c4d;
+    background-color: #313131;
 }
   
 .links-table tr:nth-child(even) {
-    background-color: #4c4c4d;
+    background-color: #313131;
 }
   
 .links-table tr:hover {
-    background-color: #4c4c4d;
+    background-color: #313131;
 }
   
 .short-link a {
@@ -40,27 +46,48 @@
 .short-link a:hover {
     text-decoration: underline;
 }
+  
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+}
 
 .header {
-    position: relative;
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  margin-top: 20px;
+  height: 70px;
+  margin-bottom: 40px;
 }
 
-.title {
-    position: relative;
-    z-index: 20;
+.header button {
+    flex-shrink: 0;
+    padding: 10px;
+    background-color: #464646;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background 0.3s;
+    height: 40px;
+    margin-top: 65px;
+    margin-right: 50px;
+    margin-left: 40px;
 }
 
-.back-button {
-    display: block;
-    margin: 10px auto;
+.header button:active {
+    transform: scale(0.97);
 }
   
-.button-container {
-    flex-shrink: 0;
+.header button:focus {
+    outline: none;
 }
 
-.container {
-    overflow: hidden;
-} */
+.header h2 {
+    margin-right: 280px;
+    font-size: 3.2em;
+}

@@ -16,42 +16,42 @@ export default function StatisticsPage() {
 
   const fetchStatistics = async () => {
     setLoading(true);
-  setError("");
-  setStats([]);
+    setError("");
+    setStats([]);
 
-  if (!shortLink) {
-    setError("Введите короткую ссылку!");
-    setLoading(false);
-    return;
-  }
-
-  try {
-    const response = await fetch(`/api/link/${shortLink}/statistics`);
-    if (!response.ok) {
-      throw new Error("Не удалось загрузить статистику");
+    if (!shortLink) {
+      setError("Введите короткую ссылку!");
+      setLoading(false);
+      return;
     }
 
-    const data = await response.json();
+    try {
+      const response = await fetch(`/api/link/${shortLink}/statistics`);
+      if (!response.ok) {
+        throw new Error("Не удалось загрузить статистику");
+      }
 
-    if (!Array.isArray(data)) {
-      throw new Error("Некорректный формат данных от сервера");
+      const data = await response.json();
+
+      if (!Array.isArray(data)) {
+        throw new Error("Некорректный формат данных от сервера");
+      }
+
+      setStats(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-
-    setStats(data);
-  } catch (err) {
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  }
-}
+  };
 
   return (
-    <div className="container">
+    <div className="statistics-page container">
       <div className="content">
-        <h1 className="title">Статистика короткой ссылки</h1>
+        <h1 className="stats-title">Статистика короткой ссылки</h1>
         <Card className="card">
           <CardContent className="card-content">
-            <div className="input-container">
+            <div className="stats-input-container">
               <Input
                 type="text"
                 placeholder="Введите короткую ссылку"
@@ -60,40 +60,45 @@ export default function StatisticsPage() {
               />
               <Button onClick={fetchStatistics}>Получить статистику</Button>
             </div>
-            {loading && <p>Загрузка...</p>}
+  
             {error && <p className="error-message">{error}</p>}
-            {!loading && !error && stats.length > 0 ? (
+  
+            <div className="stats-table-container">
               <table className="stats-table">
                 <thead>
                   <tr>
                     <th>ID</th>
                     <th>Дата создания</th>
-                    <th>Дата обновления</th>
                     <th>IP пользователя</th>
                     <th>User Agent</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {stats.map((stat) => (
-                    <tr key={stat.id}>
-                      <td>{stat.id}</td>
-                      <td>{new Date(stat.created_at).toLocaleString()}</td>
-                      <td>{new Date(stat.updated_at).toLocaleString()}</td>
-                      <td>{stat.user_ip}</td>
-                      <td>{stat.user_agent}</td>
+                  {stats.length > 0 ? (
+                    stats.map((stat) => (
+                      <tr key={stat.id}>
+                        <td>{stat.id}</td>
+                        <td>{new Date(stat.created_at).toLocaleString()}</td>
+                        <td>Не покажем (но фиксируем...)</td>
+                        <td>{stat.user_agent}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="4" className="empty-message">Нет данных</td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
-            ) : (
-              !loading && <p>Нет данных для отображения.</p>
-            )}
+            </div>
           </CardContent>
         </Card>
-        <Button onClick={() => navigate("/")} className="back-button">
-          Вернуться на главную
-        </Button>
+        <div className="back-button-container">
+          <Button onClick={() => navigate("/")} className="back-button">
+            Вернуться назад
+          </Button>
+        </div>
       </div>
     </div>
   );
-}
+}  

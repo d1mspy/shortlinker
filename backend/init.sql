@@ -1,4 +1,4 @@
-create table link(
+create table if not exists link(
     id uuid primary key,
     created_at timestamp not null,
     updated_at timestamp not null,
@@ -6,7 +6,7 @@ create table link(
     long_link text not null
 );
 
-create table link_usage(
+create table if not exists link_usage(
     id uuid primary key,
     created_at timestamp not null,
     updated_at timestamp not null,

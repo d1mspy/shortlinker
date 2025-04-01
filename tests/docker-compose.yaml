@@ -5,22 +5,22 @@ networks:
 
 services:
   backend:
-    env_file: $env
+    env_file: ../.env
     build:
-      context: ../.
+      context: ../backend
       dockerfile: Dockerfile
     depends_on:
       - postgres
-    command: bash -c "sleep 10 && pytest"
+    command: bash -c "sleep 5 && pytest -v"
     networks:
       - test
 
   postgres:
-    env_file: $env
+    env_file: ../.env
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
     build:
-      context: .
-      dockerfile: ../../postgres/Dockerfile
+      context: ./..
+      dockerfile: postgres/Dockerfile
     networks:
       - test

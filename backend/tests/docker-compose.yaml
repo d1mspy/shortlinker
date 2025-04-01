@@ -1,0 +1,26 @@
+networks:
+  test:
+    driver: bridge
+
+
+services:
+  backend:
+    env_file: $env
+    build:
+      context: ../.
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    command: bash -c "sleep 10 && pytest"
+    networks:
+      - test
+
+  postgres:
+    env_file: $env
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+    build:
+      context: .
+      dockerfile: ../../postgres/Dockerfile
+    networks:
+      - test

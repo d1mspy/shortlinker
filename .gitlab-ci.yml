@@ -11,7 +11,7 @@ build-job:
 test-job:
   stage: test
   script:
-    - pytest
+    - docker compose -f backend/tests/docker-compose.yaml up
 
 deploy-job:
   stage: deploy

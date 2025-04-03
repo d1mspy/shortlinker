@@ -91,3 +91,10 @@
     margin-right: 280px;
     font-size: 3.2em;
 }
+
+.links-table th:nth-child(3),
+.links-table td:nth-child(3) {
+  width: 45%;
+  min-width: 180px;
+  word-break: break-word;
+}

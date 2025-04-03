@@ -19,14 +19,19 @@ export default function StatisticsPage() {
     setError("");
     setStats([]);
 
-    if (!shortLink) {
+    let processedLink = shortLink.trim();
+    if (processedLink.length > 10) {
+      processedLink = processedLink.slice(-10);
+    }
+
+    if (!processedLink) {
       setError("Введите короткую ссылку!");
       setLoading(false);
       return;
     }
 
     try {
-      const response = await fetch(`/api/link/${shortLink}/statistics`);
+      const response = await fetch(`/api/link/${processedLink}/statistics`);
       if (!response.ok) {
         throw new Error("Не удалось загрузить статистику");
       }
@@ -34,7 +39,7 @@ export default function StatisticsPage() {
       const data = await response.json();
 
       if (!Array.isArray(data)) {
-        throw new Error("Некорректный формат данных от сервера");
+        throw new Error("У этой ссылки еще нет статистики");
       }
 
       setStats(data);
@@ -61,7 +66,7 @@ export default function StatisticsPage() {
               <Button onClick={fetchStatistics}>Получить статистику</Button>
             </div>
   
-            {error && <p className="error-message">{error}</p>}
+            {error && <p className="stats-error-message">{error}</p>}
   
             <div className="stats-table-container">
               <table className="stats-table">
@@ -101,4 +106,4 @@ export default function StatisticsPage() {
       </div>
     </div>
   );
-}  
+}

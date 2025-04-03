@@ -24,6 +24,7 @@ deploy-job:
     - echo "$env" >> .env
     
     - docker compose down -v
+    - rm -rf data
 
     - docker compose up -d
 

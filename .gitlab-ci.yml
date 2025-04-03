@@ -13,8 +13,7 @@ test-job:
   stage: test
   script:
     - echo "$env" >> .env
-
-
+    - docker compose down -v
     - docker compose -f tests/docker-compose.yaml up --abort-on-container-exit
 
 deploy-job:
@@ -23,9 +22,7 @@ deploy-job:
 
     - echo "$env" >> .env
     
-    - docker compose down -v
-    - rm -rf data
-
+    - docker compose down
     - docker compose up -d
 
     - echo "Ждём запуск Postgres..."

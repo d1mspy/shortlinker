@@ -40,8 +40,8 @@ async def test_put_link():
         assert "link" in default_data
         assert "link" in full_data
         
-        assert default_data["link"].startswith("http://localhost/api/short/")
-        assert full_data["link"].startswith("http://localhost/api/short/")
+        assert default_data["link"].startswith("http://short-linker.ru/api/short/")
+        assert full_data["link"].startswith("http://short-linker.ru/api/short/")
         
         assert err_data["detail"] == "Некорректная ссылка https://incorrect_link"
 

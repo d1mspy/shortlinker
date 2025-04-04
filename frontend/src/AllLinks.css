@@ -94,7 +94,7 @@
 
 .links-table th:nth-child(3),
 .links-table td:nth-child(3) {
-  width: 45%;
+  width: 48%;
   min-width: 180px;
   word-break: break-word;
 }

@@ -7,11 +7,15 @@ services:
   nginx:
     build:
       context: ./nginx
-    ports: 
+    ports:
       - "80:80"
+      - "443:443"
+      - "8000:8000"
     depends_on:
       - backend
       - frontend
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
     networks:
       - shortlinker_net
 

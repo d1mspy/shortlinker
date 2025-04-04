@@ -62,8 +62,8 @@ export default function AllLinksPage() {
                       <td>{link.id}</td>
                       <td>{new Date(link.created_at).toLocaleString()}</td>
                       <td>
-                        <a href={`http://short-linker.ru/api/short/${link.short_link}`} target="_blank" rel="noopener noreferrer">
-                          {`http://short-linker.ru/api/short/${link.short_link}`}
+                        <a href={`https://short-linker.ru/api/short/${link.short_link}`} target="_blank" rel="noopener noreferrer">
+                          {`https://short-linker.ru/api/short/${link.short_link}`}
                         </a>
                       </td>
                       <td>{link.long_link}</td>

@@ -105,6 +105,7 @@ a:hover {
 
 .short-url-link {
   font-size: 18px;
+  width: 390px;
 }
 
 .short-url-box {
@@ -124,7 +125,7 @@ a:hover {
   transition: background 0.3s;
   margin-right: 63px;
   font-size: 16px;
-  width: 30%;
+  width: 120px;
   height: 40px;
 }
 

@@ -60,10 +60,10 @@ async def put_link(long_link: PutLink) -> PutLink:
 
     short_link = await short_link_service.put_link(long_link.link)
 
-    return PutLink(link=f'https://short-linker.ru/api/short/{short_link}')
+    return PutLink(link=f'https://short-linker.ru/{short_link}')
 
 
-@app.get("/short/{short_link}")
+@app.get("/{short_link}")
 async def get_link(request: Request, short_link: str = Path(...)) -> Response:
     """
     метод переадресации с короткой ссылки на длинную

@@ -40,8 +40,8 @@ async def test_put_link():
         assert "link" in default_data
         assert "link" in full_data
         
-        assert default_data["link"].startswith("http://short-linker.ru/api/short/")
-        assert full_data["link"].startswith("http://short-linker.ru/api/short/")
+        assert default_data["link"].startswith("http://short-linker.ru/")
+        assert full_data["link"].startswith("http://short-linker.ru/")
         
         assert err_data["detail"] == "Некорректная ссылка https://incorrect_link"
 
@@ -66,8 +66,8 @@ async def test_get_link():
         short_link = all_links_data[0]["short_link"]
         short_link_err = "non_existent_link"
         
-        response = await ac.get(f"/short/{short_link}")
-        response_err = await ac.get(f"/short/{short_link_err}")
+        response = await ac.get(f"/{short_link}")
+        response_err = await ac.get(f"/{short_link_err}")
         err_data = response_err.json()
         
         assert response.status_code == 301

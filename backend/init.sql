@@ -11,6 +11,6 @@ create table if not exists link_usage(
     created_at timestamp not null,
     updated_at timestamp not null,
     user_ip text not null,
-    user_agent text not null,
+    user_agent text,
     short_link text not null
 );
